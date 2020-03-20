@@ -4,8 +4,6 @@ branches:
   only:
     -master
 
-cache: npm
-
 install: npm install
 
 script: npm run build

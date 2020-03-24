@@ -25,105 +25,61 @@
             <v-list
                     dense
                     class="grey lighten-4">
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon small>mdi-text-subject</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title class="grey--text">
-                            面试题
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider dark></v-divider>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon small>mdi-laptop</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title class="grey--text">
-                            内推
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider dark></v-divider>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon small>mdi-calendar-month-outline</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title class="grey--text">
-                            日历
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider dark></v-divider>
+                <template v-for="(item,index) in menus">
+                    <v-list-item :key="index" link @click="showComponent=item.component">
+                        <v-list-item-action>
+                            <v-icon small>{{item.icon}}</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title class="grey--text">
+                                {{item.title}}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-divider :key="index" dark></v-divider>
+                </template>
             </v-list>
         </v-navigation-drawer>
         <v-content class="grey lighten-4">
             <v-container>
-                <v-row align="center">
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-language-html5</v-icon>
-                            <span>Html</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-language-javascript</v-icon>
-                            <span>JavaScript</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-ip-network</v-icon>
-                            <span>Http</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-react</v-icon>
-                            <span>React</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-vuejs</v-icon>
-                            <span>Vue</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-language-css3</v-icon>
-                            <span>Css</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-web</v-icon>
-                            <span>Web</span>
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="2" align-self="center" class="text-center">
-                        <v-btn text>
-                            <v-icon small>mdi-language-java</v-icon>
-                            <span>Java</span>
-                        </v-btn>
-                    </v-col>
-                </v-row>
+                <component v-bind:is="showComponent"></component>
             </v-container>
         </v-content>
     </v-app>
 </template>
 
 <script>
+    import Subject from "@/components/Subject";
+    import Recommend from "@/components/Recommend";
+    import Calendar from "@/components/Calendar";
 
     export default {
         name: 'App',
-
+        components: {
+            'subject': Subject,
+            'recommend': Recommend,
+            'calendar': Calendar
+        },
         data: () => ({
             drawer: null,
+            showComponent: 'subject',
+            menus: [
+                {
+                    'component': 'subject',
+                    'icon': 'mdi-text-subject',
+                    'title': '题库'
+                },
+                {
+                    'component': 'recommend',
+                    'icon': 'mdi-laptop',
+                    'title': '内推'
+                },
+                {
+                    'component': 'calendar',
+                    'icon': 'mdi-calendar-month-outline',
+                    'title': '日历'
+                }
+            ]
         }),
     };
 </script>

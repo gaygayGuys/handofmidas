@@ -77,7 +77,7 @@
                 {
                     'component': 'calendar',
                     'icon': 'mdi-calendar-month-outline',
-                    'title': '日历'
+                    'title': '日程'
                 }
             ]
         }),
